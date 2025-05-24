@@ -1,0 +1,33 @@
+{
+	"name": "gas-react-template",
+	"version": "0.0.0",
+	"main": "dist/main.js",
+	"type": "module",
+	"license": "UNLICENSED",
+	"scripts": {
+		"clean": "rimraf ./dist ./frontend/dist",
+		"lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+		"prettier": "prettier --write .",
+		"front:build": "cd frontend && yarn build",
+		"front:dev": "cd frontend && yarn dev",
+		"bundle": "tsx ./tools/build.ts",
+		"build": "yarn clean && yarn bundle && yarn front:build && node -e \"require('fs').copyFileSync('./frontend/dist/index.html', './dist/index.html')\" && node -e \"require('fs').copyFileSync('./appsscript.json', './dist/appsscript.json')\"",
+		"deploy": "yarn lint && yarn build && clasp push --force"
+	},
+	"dependencies": {
+		"@google/clasp": "^3.0.4-alpha",
+		"@types/google-apps-script": "^1.0.97",
+		"rimraf": "^6.0.1",
+		"tsx": "^4.19.4",
+		"typescript": "^5.8.3"
+	},
+	"devDependencies": {
+		"@types/node": "^22.15.21",
+		"esbuild": "^0.25.4",
+		"eslint": "^9.27.0",
+		"eslint-config-prettier": "^10.1.5",
+		"prettier": "^3.5.3",
+		"ts-node": "^10.9.2",
+		"typescript-eslint": "^8.32.1"
+	}
+}
