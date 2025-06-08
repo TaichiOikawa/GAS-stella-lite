@@ -1,15 +1,29 @@
 import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
-import path from "path";
+import { globSync } from "glob";
+import path, { resolve } from "path";
 import { defineConfig } from "vite";
-import { viteSingleFile } from "vite-plugin-singlefile";
 
 // https://vite.dev/config/
 export default defineConfig({
-	plugins: [react(), tailwindcss(), viteSingleFile()],
-	resolve: {
-		alias: {
-			"@": path.resolve(__dirname, "src"),
-		},
-	},
+  root: resolve(__dirname, "src"),
+  build: {
+    outDir: resolve(__dirname, "../dist"),
+    rollupOptions: {
+      input: Object.fromEntries(
+        globSync("**/*.html", { cwd: path.resolve(__dirname, "src") }).map(
+          (file) => {
+            const name = path.basename(file, ".html");
+            return [name, path.resolve(__dirname, "src", file)];
+          },
+        ),
+      ),
+    },
+  },
+  plugins: [react(), tailwindcss()],
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "src"),
+    },
+  },
 });

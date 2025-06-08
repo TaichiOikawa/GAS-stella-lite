@@ -4,15 +4,15 @@ import globals from "globals";
 import tseslint from "typescript-eslint";
 
 export default [
-	{
-		ignores: ["dist", "node_modules"],
-	},
-	{
-		files: ["**/*.{js,mjs,cjs,ts,jsx,tsx}"],
-	},
-	{ languageOptions: { parserOptions: { ecmaFeatures: { jsx: true } } } },
-	{ languageOptions: { globals: globals.browser } },
-	pluginJs.configs.recommended,
-	...tseslint.configs.recommended,
-	eslintConfigPrettier,
+  {
+    ignores: ["dist", "node_modules", "frontend"],
+  },
+  {
+    files: ["**/*.{js,mjs,cjs,ts,jsx,tsx}"],
+  },
+  { languageOptions: { parserOptions: { ecmaFeatures: { jsx: true } } } },
+  { languageOptions: { globals: globals.browser } },
+  pluginJs.configs.recommended,
+  ...tseslint.configs.recommended,
+  eslintConfigPrettier,
 ];

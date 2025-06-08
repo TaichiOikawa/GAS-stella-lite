@@ -1,2 +1,6 @@
 /yarn.lock
 /dist
+/.yarn
+/node_modules
+
+frontend/
